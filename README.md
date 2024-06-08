@@ -63,6 +63,64 @@ The URL of the blog page that will be downloaded. Make sure to pass a complete U
 ./QMNDownloader --url "https://www.queermenow.net/blog/{name}/"
 ```
 
+## Cloning and Building the Project
+
+For those who wish to clone and compile the QMN Downloader project, follow the detailed steps below:
+
+### Cloning the Repository
+
+First, you need to clone the GitHub repository to your local environment. Open a terminal and execute the following command:
+
+```bash
+git clone https://github.com/Zanxis/QMNDownloader.git
+```
+
+This will create a local copy of the repository on your device.
+
+### Navigating to the Project Directory
+
+After cloning the repository, navigate to the project directory:
+
+```bash
+cd QMNDownloader
+```
+
+### Installing Dependencies
+
+Before compiling the project, ensure that you have all the necessary dependencies installed. You will need .NET SDK 8.0.0 or higher. To install the .NET SDK, follow the instructions provided on the [official .NET page](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
+
+Verify that the .NET SDK is correctly installed by running the command:
+
+```bash
+dotnet --version
+```
+
+The command should return the installed version of the .NET SDK.
+
+### Building the Project
+
+With all dependencies installed, you can compile the project by running the following command in the root directory of the project:
+
+```bash
+dotnet build
+```
+
+This command will compile the project and generate the binaries in the `bin` directory.
+
+You can also use the following command to compile and start the application (remember to include the necessary arguments if desired):
+
+```bash
+dotnet run --project QMNDownloader
+```
+
+### Running the Application
+
+After compiling the project, you can navigate to the output directory and run the application directly with the following command:
+
+```bash
+./QMNDownloader
+```
+
 ## Contributing
 
 Feel free to explore and contribute to the project in any way you like! Create an issue if the application malfunctions or contribute by bringing a PR (pull request) to the project. Contributions will be reviewed and tested for approval. You can find more details on how to contribute [by clicking here](./CONTRIBUTING.md).
