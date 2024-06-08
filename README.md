@@ -12,12 +12,6 @@
 
 QMN Downloader is an automated CLI tool that allows users to download content from the QueerMeNow blog website. With it, you can select any blog URL you desire and download all the main media content (including images and videos), saving them locally on your device in an organized, quick, and easy manner.
 
-## Demo
-
-<!---
-[![ASCII Demo](https://github.com/miraclx/freyr-js/raw/master/media/demo.gif)](https://asciinema.org/a/KH5xyBq9G8Wf5Dyvj6AfqXwYr?autoplay=1 "Click to view ASCII")
--->
-
 ## Disclaimer
 
 Due to the nature of this application being geared towards NSFW content, I declare that I am not responsible for anything that happens to you while using this tool. By downloading content, you are doing so at your own risk. If you are underage, please leave this repository.
