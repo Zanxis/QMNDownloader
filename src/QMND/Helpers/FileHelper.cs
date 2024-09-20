@@ -15,7 +15,7 @@ namespace QMNDownloader.Helpers
             return string.Join("_", GetLastSegmentFromUrl(url).Split(Path.GetInvalidFileNameChars()));
         }
 
-        static string GetLastSegmentFromUrl(string url)
+        private static string GetLastSegmentFromUrl(string url)
         {
             Uri uri = new(url);
             string[] segments = uri.AbsolutePath.Split(separator, StringSplitOptions.RemoveEmptyEntries);

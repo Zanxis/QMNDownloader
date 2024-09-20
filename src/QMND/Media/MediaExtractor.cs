@@ -1,10 +1,11 @@
+using HtmlAgilityPack;
+
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using HtmlAgilityPack;
 
 namespace QMNDownloader.Media
 {
@@ -13,7 +14,7 @@ namespace QMNDownloader.Media
         internal static async Task<string[]> ExtractMediaUrls(HttpClient httpClient, string url)
         {
             HttpResponseMessage response = await httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+            _ = response.EnsureSuccessStatusCode();
             string pageContent = await response.Content.ReadAsStringAsync();
 
             HtmlDocument document = new();
@@ -55,7 +56,9 @@ namespace QMNDownloader.Media
         private static string ExtractVideoUrlFromJson(string json)
         {
             if (string.IsNullOrEmpty(json))
+            {
                 return null;
+            }
 
             try
             {

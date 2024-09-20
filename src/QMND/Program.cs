@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Figgle;
+
+using QMNDownloader.Constants;
+using QMNDownloader.Helpers;
+using QMNDownloader.Media;
+
+using System;
 using System.CommandLine;
-using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Figgle;
-using QMNDownloader.Constants;
-using QMNDownloader.Helpers;
-using QMNDownloader.Media;
 
 namespace QMNDownloader
 {
@@ -24,7 +25,7 @@ namespace QMNDownloader
             Console.WriteLine(new string('-', 32));
 
             RootCommand rootCommand = CreateRootCommand();
-            
+
             return await rootCommand.InvokeAsync(args);
         }
 
@@ -58,7 +59,7 @@ namespace QMNDownloader
                 Console.WriteLine("Initializing tool...");
 
                 (string blogDirectory, string imageDirectory, string videoDirectory) directories = SetupDirectories(blogUrl);
-                
+
                 Console.Write("Creating HttpClient for communication...");
                 using HttpClient httpClient = HttpClientHelper.CreateHttpClient();
                 ConsoleHelpers.WriteLineColor(" [done]", ConsoleColor.Green);
@@ -72,7 +73,7 @@ namespace QMNDownloader
                     Console.WriteLine("Downloading extracted media files...");
                     StringBuilder summary = await DownloadMediaFilesAsync(httpClient, blogUrl, mediaUrls, directories);
                     ConsoleHelpers.WriteLineColor("[done]", ConsoleColor.Green);
-                    
+
                     Console.WriteLine("Creating and saving summary markdown file in output directory...");
                     await SaveSummaryAsync(summary, directories.blogDirectory);
                     ConsoleHelpers.WriteLineColor("[done]", ConsoleColor.Green);
@@ -115,9 +116,9 @@ namespace QMNDownloader
             string imageDirectory = Path.Combine(blogDirectory, "images");
             string videoDirectory = Path.Combine(blogDirectory, "videos");
 
-            Directory.CreateDirectory(blogDirectory);
-            Directory.CreateDirectory(imageDirectory);
-            Directory.CreateDirectory(videoDirectory);
+            _ = Directory.CreateDirectory(blogDirectory);
+            _ = Directory.CreateDirectory(imageDirectory);
+            _ = Directory.CreateDirectory(videoDirectory);
 
             ConsoleHelpers.WriteLineColor($"[ • ] Directory `{blogDirectory}` created successfully.", ConsoleColor.Cyan);
             ConsoleHelpers.WriteLineColor($"[ • ] Directory `{imageDirectory}` created successfully.", ConsoleColor.Cyan);
@@ -131,16 +132,16 @@ namespace QMNDownloader
         {
             DateTime startTime = DateTime.Now;
             StringBuilder summary = new();
-            summary.AppendLine("# Download Summary");
-            summary.AppendLine();
-            summary.AppendLine("## General Information");
-            summary.AppendLine();
-            summary.AppendLine($"**URL**: `{url}`");
-            summary.AppendLine($"**Download Directory**: `{directories.blogDirectory}`");
-            summary.AppendLine($"**Download Start Time**: `{startTime}`");
-            summary.AppendLine();
-            summary.AppendLine($"## Downloaded Files ({mediaUrls.Length})");
-            summary.AppendLine();
+            _ = summary.AppendLine("# Download Summary");
+            _ = summary.AppendLine();
+            _ = summary.AppendLine("## General Information");
+            _ = summary.AppendLine();
+            _ = summary.AppendLine($"**URL**: `{url}`");
+            _ = summary.AppendLine($"**Download Directory**: `{directories.blogDirectory}`");
+            _ = summary.AppendLine($"**Download Start Time**: `{startTime}`");
+            _ = summary.AppendLine();
+            _ = summary.AppendLine($"## Downloaded Files ({mediaUrls.Length})");
+            _ = summary.AppendLine();
 
             int imageCount = 0, videoCount = 0, otherCount = 0;
             long totalSize = 0;
@@ -150,11 +151,11 @@ namespace QMNDownloader
                 (string filePath, long fileSize) = await MediaDownloader.DownloadMediaAsync(httpClient, mediaUrl, directories.imageDirectory, directories.videoDirectory);
                 string fileName = Path.GetFileName(filePath);
 
-                summary.AppendLine($"### {fileName} ({FileHelper.FormatFileSize(fileSize)})");
-                summary.AppendLine();
-                summary.AppendLine($"- **URL**: [{mediaUrl}]({mediaUrl});");
-                summary.AppendLine($"- **Path:** [{filePath}]({filePath}).");
-                summary.AppendLine();
+                _ = summary.AppendLine($"### {fileName} ({FileHelper.FormatFileSize(fileSize)})");
+                _ = summary.AppendLine();
+                _ = summary.AppendLine($"- **URL**: [{mediaUrl}]({mediaUrl});");
+                _ = summary.AppendLine($"- **Path:** [{filePath}]({filePath}).");
+                _ = summary.AppendLine();
 
                 totalSize += fileSize;
                 if (mediaUrl.EndsWith(".jpg") || mediaUrl.EndsWith(".png"))
@@ -174,15 +175,15 @@ namespace QMNDownloader
             }
 
             DateTime endTime = DateTime.Now;
-            summary.AppendLine($"**Download End Time**: `{endTime}`");
-            summary.AppendLine($"**Total Time**: `{(endTime - startTime).TotalMinutes} minutes`");
-            summary.AppendLine();
-            summary.AppendLine("## Statistics");
-            summary.AppendLine();
-            summary.AppendLine($"- **Images**: {imageCount}");
-            summary.AppendLine($"- **Videos**: {videoCount}");
-            summary.AppendLine($"- **Others**: {otherCount}");
-            summary.AppendLine($"- **Total Size**: {FileHelper.FormatFileSize(totalSize)}");
+            _ = summary.AppendLine($"**Download End Time**: `{endTime}`");
+            _ = summary.AppendLine($"**Total Time**: `{(endTime - startTime).TotalMinutes} minutes`");
+            _ = summary.AppendLine();
+            _ = summary.AppendLine("## Statistics");
+            _ = summary.AppendLine();
+            _ = summary.AppendLine($"- **Images**: {imageCount}");
+            _ = summary.AppendLine($"- **Videos**: {videoCount}");
+            _ = summary.AppendLine($"- **Others**: {otherCount}");
+            _ = summary.AppendLine($"- **Total Size**: {FileHelper.FormatFileSize(totalSize)}");
 
             return summary;
         }

@@ -1,8 +1,9 @@
+using QMNDownloader.Helpers;
+
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
-using QMNDownloader.Helpers;
 
 namespace QMNDownloader.Media
 {
